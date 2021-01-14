@@ -1,7 +1,7 @@
 import React, { useState, useEffect, useContext, createContext } from 'react'
 // import cookies from 'js-cookie';
 import firebase from './firebase'
-// import { createUser } from './db';
+import { createUser } from './db';
 // import { IUser } from '@/models';
 
 type IAuth = {
@@ -41,7 +41,7 @@ function useProvideAuth(): IAuth {
       const user = formatUser(rawUser)
       const { token, ...userData } = user
       // cookies.set('auth-token', token, { expires: 1 });
-      // createUser(user.uid, userData);
+      createUser(user.uid, userData);
       setLoading(false)
       setUser(user)
 

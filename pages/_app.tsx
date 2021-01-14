@@ -1,11 +1,18 @@
-import '../styles/globals.css'
-import { AuthProvider } from '../lib/auth'
+import { AppProps } from 'next/app'
+import { ThemeProvider } from '@emotion/react'
 
-function MyApp({ Component, pageProps }) {
+import { theme } from '@styles/theme'
+import { AuthProvider } from '@lib/auth'
+import { GlobalStyle } from '@styles/global-style'
+
+const MyApp = ({ Component, pageProps }: AppProps) => {
   return (
-    <AuthProvider>
-      <Component {...pageProps} />
-    </AuthProvider>
+    <ThemeProvider theme={theme}>
+      <GlobalStyle />
+      <AuthProvider>
+        <Component {...pageProps} />
+      </AuthProvider>
+    </ThemeProvider>
   )
 }
 
