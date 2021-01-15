@@ -1,10 +1,10 @@
 import Head from 'next/head'
-import { Button,  Flex } from '@chakra-ui/react'
+import { Button, Flex } from '@chakra-ui/react'
 
 import { useAuth } from '@lib/auth'
-import { LogoIcon } from '@styles/Icons/LogoIcon'
+import { LogoIcon } from '@components/Icons/LogoIcon'
 
-export default function Home() {
+const Home = () => {
   const auth = useAuth()
 
   return (
@@ -18,18 +18,19 @@ export default function Home() {
       <Head>
         <title>Feedback Loop</title>
       </Head>
-      <LogoIcon boxSize={16} />
+
+      <LogoIcon boxSize={16} mb={4} />
       {auth.user ? (
-        <Button onClick={() => auth.signOut()}>Sign Out</Button>
+        <Button as="a" href="/dashboard">
+          View Dashboard
+        </Button>
       ) : (
-        <Button
-          mt={4}
-          size="sm"
-          onClick={() => auth.signInWithGitHub()}
-        >
+        <Button mt={4} size="sm" onClick={() => auth.signInWithGitHub()}>
           Sign In
         </Button>
       )}
     </Flex>
   )
 }
+
+export default Home
