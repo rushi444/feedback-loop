@@ -18,12 +18,19 @@ import {
 
 import { createSite } from '@lib/db'
 import { useAuth } from '@lib/auth'
+import { InputField } from '@components/fields/InputField'
 
 export const AddSiteModal = ({ children }) => {
   const toast = useToast()
   const auth = useAuth()
   const { isOpen, onOpen, onClose } = useDisclosure()
-  const { handleSubmit, register } = useForm()
+  const { handleSubmit, control } = useForm({
+    mode: 'onChange',
+    defaultValues: {
+      name: '',
+      url: ''
+    }
+  })
 
   const onCreateSite = ({ name, url }) => {
     const newSite = {
@@ -71,28 +78,21 @@ export const AddSiteModal = ({ children }) => {
         <ModalContent as="form" onSubmit={handleSubmit(onCreateSite)}>
           <ModalHeader fontWeight="bold">Add Site</ModalHeader>
           <ModalCloseButton />
-          <ModalBody pb={6}>
-            <FormControl>
-              <FormLabel>Name</FormLabel>
-              <Input
-                placeholder="My site"
-                name="name"
-                ref={register({
-                  required: 'Required'
-                })}
-              />
-            </FormControl>
-
-            <FormControl mt={4}>
-              <FormLabel>Link</FormLabel>
-              <Input
-                placeholder="https://website.com"
-                name="url"
-                ref={register({
-                  required: 'Required'
-                })}
-              />
-            </FormControl>
+          <ModalBody>
+            <InputField
+              name="name"
+              label="Name"
+              control={control}
+              placeholder="My site"
+              rules={{ required: 'Required!' }}
+            />
+            <InputField
+              name="url"
+              label="Link"
+              control={control}
+              placeholder='http://mysite.com'
+              rules={{ required: 'Required!' }}
+            />
           </ModalBody>
 
           <ModalFooter>
