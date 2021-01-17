@@ -42,7 +42,7 @@ export const DashboardShell = ({ children }) => {
                 Log Out
               </Button>
             )}
-            <Avatar size="sm" src={user?.photoUrl} />
+            <Avatar size="sm" src={user?.photoURL} />
           </Flex>
         </Flex>
       </Flex>

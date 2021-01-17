@@ -34,7 +34,7 @@ export const useAuth = () => useContext(authContext)
 function useProvideAuth(): IAuth {
   const [user, setUser] = useState(null)
   const [loading, setLoading] = useState(true)
-  const handleUser = rawUser => {
+  const handleUser = (rawUser: any) => {
     if (rawUser) {
       console.log('rawUser==>>', rawUser)
       const user = formatUser(rawUser)
