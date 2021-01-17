@@ -1,12 +1,11 @@
 import React, { useState, useEffect, useContext, createContext } from 'react'
 // import cookies from 'js-cookie';
 import firebase from './firebase'
-import { createUser } from './db';
-// import { IUser } from '@/models';
+import { createUser } from './db'
+import { TUser } from '../utils/types'
 
 type IAuth = {
-  // user: IUser | null
-  user: any
+  user: TUser | null
   loading: boolean
   signInWithGitHub: (redirect?: string) => void
   // signInWithGoogle: (redirect?: string) => void
@@ -41,7 +40,7 @@ function useProvideAuth(): IAuth {
       const user = formatUser(rawUser)
       const { token, ...userData } = user
       // cookies.set('auth-token', token, { expires: 1 });
-      createUser(user.uid, userData);
+      createUser(user.uid, userData)
       setLoading(false)
       setUser(user)
 
