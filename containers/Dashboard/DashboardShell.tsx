@@ -21,7 +21,11 @@ export const DashboardShell = ({ children }) => {
           px={8}
         >
           <Flex>
-            <LogoIcon boxSize={8} mr={8} />
+            <NextLink href="/" passHref>
+              <Link>
+                <LogoIcon boxSize={8} mr={8} />
+              </Link>
+            </NextLink>
             <NextLink href="/dashboard" passHref>
               <Link mr={4}>Sites</Link>
             </NextLink>
@@ -31,9 +35,13 @@ export const DashboardShell = ({ children }) => {
           </Flex>
           <Flex justifyContent="center" alignItems="center">
             {user && (
-              <Button variant="ghost" mr={2} onClick={() => signOut()}>
-                Log Out
-              </Button>
+              <NextLink href="/" passHref>
+                <Link>
+                  <Button variant="ghost" mr={2} onClick={() => signOut()}>
+                    Log Out
+                  </Button>
+                </Link>
+              </NextLink>
             )}
             <Avatar size="sm" src={user?.photoURL} />
           </Flex>

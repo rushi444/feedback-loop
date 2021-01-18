@@ -8,7 +8,7 @@ type IAuth = {
   user: TUser | null
   loading: boolean
   signInWithGitHub: (redirect?: string) => void
-  // signInWithGoogle: (redirect?: string) => void
+  signInWithGoogle: (redirect?: string) => void
   signOut: () => void
 }
 
@@ -55,21 +55,15 @@ function useProvideAuth(): IAuth {
       return false
     }
   }
-  // const signInWithGoogle = redirect => {
-  //   setLoading(true)
+  const signInWithGoogle = async (redirect: any) => {
+    setLoading(true)
 
-  //   return firebase
-  //     .auth()
-  //     .signInWithPopup(new firebase.auth.GoogleAuthProvider())
-  //     .then(response => {
-  //       handleUser(response.user)
-  //       console.log('redirect==>>', redirect)
-
-  //       // if (redirect) {
-  //       //   Router.push(redirect);
-  //       // }
-  //     })
-  // }
+    const response = await firebase
+      .auth()
+      .signInWithPopup(new firebase.auth.GoogleAuthProvider())
+    handleUser(response.user)
+    console.log('redirect==>>', redirect)
+  }
   const signInWithGitHub = async (redirect: any) => {
     setLoading(true)
 
@@ -95,7 +89,7 @@ function useProvideAuth(): IAuth {
     user,
     loading,
     signInWithGitHub,
-    // signInWithGoogle,
+    signInWithGoogle,
     signOut
   }
 }
