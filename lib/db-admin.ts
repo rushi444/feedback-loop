@@ -1,9 +1,9 @@
 import { compareDesc, parseISO } from 'date-fns'
-import firebase from './firebase-admin'
+import { firestore } from './firebase-admin'
 
 export const getAllFeedback = async (siteId: string) => {
   try {
-    const snapshot = await firebase
+    const snapshot = await firestore
       .collection('feedback')
       .where('siteId', '==', siteId)
       .get()
@@ -27,12 +27,31 @@ export const getAllFeedback = async (siteId: string) => {
 export const getAllSites = async () => {
   try {
     const sites = []
-    const collection = await firebase.collection('sites').get()
+    const collection = await firestore.collection('sites').get()
     collection.forEach(site => {
       sites.push({ id: site.id, ...site.data() })
     })
     return { sites }
   } catch (err) {
     console.error(err)
+  }
+}
+
+export const getAllSitesByUser = async (userId: string) => {
+  try {
+    const snapshot = await firestore
+      .collection('sites')
+      .where('authorId', '==', userId)
+      .get()
+
+    const sites = []
+
+    snapshot.forEach(site => {
+      sites.push({ id: site.id, ...site.data() })
+    })
+
+    return { sites }
+  } catch (error) {
+    console.error({ error })
   }
 }

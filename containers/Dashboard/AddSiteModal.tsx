@@ -8,10 +8,7 @@ import {
   ModalFooter,
   ModalBody,
   ModalCloseButton,
-  FormControl,
-  FormLabel,
   Button,
-  Input,
   useToast,
   useDisclosure
 } from '@chakra-ui/react'
@@ -49,7 +46,7 @@ export const AddSiteModal = ({ children }) => {
       isClosable: true
     })
     mutate(
-      '/api/sites',
+      ['/api/sites', auth.user.token],
       async data => {
         return { sites: [...data.sites, newSite] }
       },

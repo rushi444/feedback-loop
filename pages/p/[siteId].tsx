@@ -73,7 +73,8 @@ export const getStaticProps: GetStaticProps = async context => {
   return {
     props: {
       initialFeedback: feedback
-    }
+    },
+    revalidate: 1
   }
 }
 

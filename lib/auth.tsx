@@ -1,5 +1,5 @@
 import React, { useState, useEffect, useContext, createContext } from 'react'
-// import cookies from 'js-cookie';
+import cookies from 'js-cookie'
 import firebase from './firebase'
 import { createUser } from './db'
 import { TUser } from '../utils/types'
@@ -36,19 +36,22 @@ function useProvideAuth(): IAuth {
   const [loading, setLoading] = useState(true)
   const handleUser = (rawUser: any) => {
     if (rawUser) {
-      console.log('rawUser==>>', rawUser)
       const user = formatUser(rawUser)
       const { token, ...userData } = user
-      // cookies.set('auth-token', token, { expires: 1 });
+      console.log('user =>', user)
       createUser(user.uid, userData)
       setLoading(false)
       setUser(user)
+
+      cookies.set('feedback-loop-auth', true, {
+        expires: 1
+      })
 
       return user
     } else {
       setLoading(false)
       setUser(false)
-      // cookies.remove('auth-token');
+      cookies.remove('feedback-loop-auth')
       return false
     }
   }
@@ -67,20 +70,14 @@ function useProvideAuth(): IAuth {
   //       // }
   //     })
   // }
-  const signInWithGitHub = (redirect: any) => {
+  const signInWithGitHub = async (redirect: any) => {
     setLoading(true)
 
-    return firebase
+    const response = await firebase
       .auth()
       .signInWithPopup(new firebase.auth.GithubAuthProvider())
-      .then(response => {
-        handleUser(response.user)
-        console.log('redirect==>>', redirect)
-
-        // if (redirect) {
-        //   Router.push(redirect);
-        // }
-      })
+    handleUser(response.user)
+    console.log('redirect==>>', redirect)
   }
   const signOut = () =>
     firebase
@@ -103,11 +100,11 @@ function useProvideAuth(): IAuth {
   }
 }
 
-const formatUser = user => ({
+const formatUser = (user: any) => ({
   uid: user.uid,
   email: user.email,
-  name: user.displayName,
+  name: user?.displayName || user.email,
   provider: user.providerData[0].providerId,
   photoURL: user.photoURL,
-  token: user.xa
+  token: user.ya
 })
