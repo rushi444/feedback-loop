@@ -8,7 +8,7 @@ import { InputField } from '@components/fields/InputField'
 import { useAuth } from '@lib/auth'
 import { createFeedback } from '@lib/db'
 import { getAllFeedback, getAllSites } from '@lib/db-admin'
-import { Feedback } from '@containers/Feedback/Feedback'
+import { Feedback } from '@containers/SiteFeedback/Feedback'
 import { TFeedback } from 'utils/types'
 
 type Props = {

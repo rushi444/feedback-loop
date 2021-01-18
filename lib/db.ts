@@ -18,3 +18,7 @@ export const createSite = data => {
 export const createFeedback = (data: TNewFeedback) => {
   return firestore.collection('feedback').add(data)
 }
+
+export const deleteFeedback = (feedbackId: string) => {
+  return firestore.collection('feedback').doc(feedbackId).delete()
+}

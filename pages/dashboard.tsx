@@ -5,7 +5,8 @@ import { DashboardShell } from '@containers/Dashboard/DashboardShell'
 import { SiteTableSkeleton } from '@containers/Dashboard/SiteTable/TableSkeleton'
 import { SiteTable } from '@containers/Dashboard/SiteTable'
 import { EmptyState } from '@containers/Dashboard/EmptyState'
-import { fetcher } from 'utils/fetcher'
+import { fetcher } from '@utils/fetcher'
+import { TableHeader as SiteTableHeader } from '@containers/Dashboard/SiteTable/TableHeader'
 
 const Dashboard = () => {
   const { user } = useAuth()
@@ -14,6 +15,7 @@ const Dashboard = () => {
   if (!data) {
     return (
       <DashboardShell>
+        <SiteTableHeader />
         <SiteTableSkeleton />
       </DashboardShell>
     )
@@ -21,6 +23,7 @@ const Dashboard = () => {
 
   return (
     <DashboardShell>
+      <SiteTableHeader />
       {data?.sites?.length ? <SiteTable sites={data.sites} /> : <EmptyState />}
     </DashboardShell>
   )

@@ -55,3 +55,22 @@ export const getAllSitesByUser = async (userId: string) => {
     console.error({ error })
   }
 }
+
+export const getFeedbackByUser = async (userId: string) => {
+  try {
+    const snapshot = await firestore
+      .collection('feedback')
+      .where('authorId', '==', userId)
+      .get()
+
+    const allFeedback = []
+
+    snapshot.forEach(feedback => {
+      allFeedback.push({ id: feedback.id, ...feedback.data() })
+    })
+
+    return { allFeedback }
+  } catch (error) {
+    console.error({ error })
+  }
+}
