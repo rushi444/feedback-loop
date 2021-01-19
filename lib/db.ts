@@ -1,6 +1,6 @@
 import firebase from './firebase'
 import 'firebase/firestore'
-import { TNewFeedback } from 'utils/types'
+import { TNewFeedback, TNewSite } from 'utils/types'
 
 const firestore = firebase.firestore()
 
@@ -11,8 +11,10 @@ export const createUser = (uid, data) => {
     .set({ uid, ...data }, { merge: true })
 }
 
-export const createSite = data => {
-  return firestore.collection('sites').add(data)
+export const createSite = (data: TNewSite) => {
+  const site = firestore.collection('sites').doc()
+  site.set(data)
+  return site
 }
 
 export const createFeedback = (data: TNewFeedback) => {

@@ -36,3 +36,10 @@ export type TNewFeedback = {
   provider: string
   status: string
 }
+
+export type TNewSite = {
+  authorId: string
+  createdAt: string
+  name: string
+  url: string
+}

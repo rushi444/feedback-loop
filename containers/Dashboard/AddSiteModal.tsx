@@ -16,6 +16,7 @@ import {
 import { createSite } from '@lib/db'
 import { useAuth } from '@lib/auth'
 import { InputField } from '@components/fields/InputField'
+import { TNewSite } from '@utils/types'
 
 export const AddSiteModal = ({ children }) => {
   const toast = useToast()
@@ -30,14 +31,14 @@ export const AddSiteModal = ({ children }) => {
   })
 
   const onCreateSite = ({ name, url }) => {
-    const newSite = {
+    const newSite: TNewSite = {
       authorId: auth.user.uid,
       createdAt: new Date().toISOString(),
       name,
       url
     }
 
-    createSite(newSite)
+    const { id } = createSite(newSite)
     toast({
       title: 'Success!',
       description: "We've added your site.",
@@ -47,9 +48,7 @@ export const AddSiteModal = ({ children }) => {
     })
     mutate(
       ['/api/sites', auth.user.token],
-      async data => {
-        return { sites: [...data.sites, newSite] }
-      },
+      async (data: any) => ({ sites: [...data.sites, { id, ...newSite }] }),
       false
     )
     onClose()
@@ -87,7 +86,7 @@ export const AddSiteModal = ({ children }) => {
               name="url"
               label="Link"
               control={control}
-              placeholder='http://mysite.com'
+              placeholder="http://mysite.com"
               rules={{ required: 'Required!' }}
             />
           </ModalBody>
