@@ -1,14 +1,13 @@
 import React from 'react'
 import { useController, Control } from 'react-hook-form'
-import {
-  Box,
-  FormControl,
-  FormErrorMessage,
-  FormLabel,
-  Input
-} from '@chakra-ui/react'
+import { Box, FormControl, FormErrorMessage, Input } from '@chakra-ui/react'
 
+import dynamic from 'next/dynamic'
 import { useMetaError } from '../../hooks/useMetaError'
+
+const FormLabel = dynamic(() => import('../fields/FormLabel'), {
+  ssr: false
+})
 
 type Props = {
   name: string
@@ -28,7 +27,7 @@ export const InputField = (props: Props) => {
   return (
     <Box m="3% 0">
       <FormControl isInvalid={hasError}>
-        <FormLabel>{label}</FormLabel>
+        <FormLabel label={label} />
         <Input {...field} placeholder={placeholder} type={type} />
         <FormErrorMessage>{errorMessage}</FormErrorMessage>
       </FormControl>

@@ -48,7 +48,7 @@ export const AddSiteModal = ({ children }) => {
     })
     mutate(
       ['/api/sites', auth.user.token],
-      async (data: any) => ({ sites: [...data.sites, { id, ...newSite }] }),
+      async (data: any) => ({ sites: [{ id, ...newSite }, ...data.sites] }),
       false
     )
     onClose()

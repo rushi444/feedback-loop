@@ -2,7 +2,6 @@ import Head from 'next/head'
 import { Box, Flex, Text } from '@chakra-ui/react'
 import { GetStaticProps } from 'next'
 
-import { useAuth } from '@lib/auth'
 import { LogoIcon } from '@components/Icons/LogoIcon'
 import { AuthButtons } from '@containers/Home/AuthButtons'
 import { getAllFeedback } from '@lib/db-admin'
@@ -12,7 +11,6 @@ import { Feedback } from '@containers/SiteFeedback/Feedback'
 const SITE_ID = '861mmV8YcfMo8ECmTmIX'
 
 const Home = ({ allFeedback }) => {
-console.log(allFeedback)
   return (
     <>
       <Box bg="gray.100" py={16}>
@@ -26,7 +24,7 @@ console.log(allFeedback)
                   `
               }}
             />
-            <title>Fast Feedback</title>
+            <title>Feedback Loop</title>
           </Head>
           <LogoIcon boxSize={16} mb={4} />
           <Text mb={4} fontSize="lg" py={4}>

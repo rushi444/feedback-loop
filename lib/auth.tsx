@@ -1,5 +1,7 @@
 import React, { useState, useEffect, useContext, createContext } from 'react'
 import cookies from 'js-cookie'
+import router from 'next/router'
+
 import firebase from './firebase'
 import { createUser } from './db'
 import { TUser } from '../utils/types'
@@ -73,11 +75,13 @@ function useProvideAuth(): IAuth {
     handleUser(response.user)
     console.log('redirect==>>', redirect)
   }
-  const signOut = () =>
-    firebase
+  const signOut = () => {
+    router.push('/')
+    return firebase
       .auth()
       .signOut()
       .then(() => handleUser(false))
+  }
 
   useEffect(() => {
     const unsubscribe = firebase.auth().onAuthStateChanged(handleUser)
