@@ -3,9 +3,8 @@ import useSWR from 'swr'
 import { useAuth } from '@lib/auth'
 import { DashboardShell } from '@containers/Dashboard/DashboardShell'
 import { fetcher } from '@utils/fetcher'
-// import { createCheckoutSession } from '@lib/db'
-import { GithubIcon } from '@components/Icons/GithubIcon'
-import { Button } from '@chakra-ui/react'
+import { createCheckoutSession, goToBillingPortal } from '@lib/db'
+import { Box, Button } from '@chakra-ui/react'
 
 const Dashboard = () => {
   const { user } = useAuth()
@@ -22,20 +21,35 @@ const Dashboard = () => {
 
   return (
     <DashboardShell>
-      <Button
-        // onClick={e => createCheckoutSession(user.uid)}
-        backgroundColor="gray.900"
-        color="white"
-        fontWeight="medium"
-        leftIcon={<GithubIcon />}
-        _hover={{ bg: 'gray.700' }}
-        _active={{
-          bg: 'gray.800',
-          transform: 'scale(0.95)'
-        }}
-      >
-        Upgrade to Starter
-      </Button>
+      <Box>
+        <Button
+          onClick={e => createCheckoutSession(user.uid)}
+          backgroundColor="gray.900"
+          color="white"
+          fontWeight="medium"
+          _hover={{ bg: 'gray.700' }}
+          _active={{
+            bg: 'gray.800',
+            transform: 'scale(0.95)'
+          }}
+        >
+          Upgrade to Starter
+        </Button>
+        <Button
+          onClick={e => goToBillingPortal()}
+          backgroundColor="gray.900"
+          color="white"
+          fontWeight="medium"
+          ml={4}
+          _hover={{ bg: 'gray.700' }}
+          _active={{
+            bg: 'gray.800',
+            transform: 'scale(0.95)'
+          }}
+        >
+          Go to Billing Portal
+        </Button>
+      </Box>
     </DashboardShell>
   )
 }

@@ -1,5 +1,6 @@
 import firebase from './firebase'
 import 'firebase/firestore'
+import 'firebase/functions'
 
 import { getStripe } from '../utils/stripe'
 import { TNewFeedback, TNewSite } from 'utils/types'
@@ -28,36 +29,34 @@ export const deleteFeedback = (feedbackId: string) => {
   return firestore.collection('feedback').doc(feedbackId).delete()
 }
 
-// export const createCheckoutSession = async (uid: string) => {
-//   console.log('what')
-//   const checkoutSessionRef = await firestore
-//     .collection('users')
-//     .doc(uid)
-//     .collection('checkout_sessions')
-//     .add({
-//       price: 'price_1IBZ1nHyh3b72VElRgoqCeTh',
-//       success_url: window.location.origin,
-//       cancel_url: window.location.origin
-//     })
+export const createCheckoutSession = async (uid: string) => {
+  console.log('what')
+  const checkoutSessionRef = await firestore
+    .collection('users')
+    .doc(uid)
+    .collection('checkout_sessions')
+    .add({
+      price: 'price_1IBZ1nHyh3b72VElRgoqCeTh',
+      success_url: window.location.origin,
+      cancel_url: window.location.origin
+    })
 
-//     console.log('wet', checkoutSessionRef)
+  checkoutSessionRef.onSnapshot(async snap => {
+    const { sessionId } = snap.data()
+    console.log('sesssionid', sessionId)
+    if (sessionId) {
+      const stripe = await getStripe()
 
-//   checkoutSessionRef.onSnapshot(async snap => {
-//     const { sessionId } = snap.data()
-//     console.log('sesssionid', sessionId)
-//     if (sessionId) {
-//       const stripe = await getStripe()
+      stripe.redirectToCheckout({ sessionId })
+    }
+  })
+}
 
-//       stripe.redirectToCheckout({ sessionId })
-//     }
-//   })
-// }
+export const goToBillingPortal = async () => {
+  const functionRef = app
+    .functions('us-west2')
+    .httpsCallable('ext-firestore-stripe-subscriptions-createPortalLink')
+  const { data } = await functionRef({ returnUrl: window.location.origin })
 
-// export async function goToBillingPortal() {
-//   const functionRef = app
-//     .functions('us-west2')
-//     .httpsCallable('ext-firestore-stripe-subscriptions-createPortalLink')
-//   const { data } = await functionRef({ returnUrl: window.location.origin })
-
-//   window.location.assign(data.url)
-// }
+  window.location.assign(data.url)
+}

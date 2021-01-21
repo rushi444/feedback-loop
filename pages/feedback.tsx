@@ -6,7 +6,8 @@ import { DashboardShell } from '@containers/Dashboard/DashboardShell'
 import { UserFeedbackTable } from '@containers/UserFeedback/UserFeedbackTable'
 import { UserFeedbackTableHeader } from '@containers/UserFeedback/UserFeedbackTable/UserFeedbackTableHeader'
 import { UserFeedbackSkeleton } from '@containers/UserFeedback/UserFeedbackTable/UserFeedbackSkeleton'
-import { EmptyState } from '@containers/Dashboard/EmptyState'
+
+import { FeedbackEmptyState } from '@containers/UserFeedback/FeedbackEmptyState'
 
 const MyFeedback = () => {
   const { user } = useAuth()
@@ -27,7 +28,7 @@ const MyFeedback = () => {
       {data.allFeedback.length ? (
         <UserFeedbackTable allFeedback={data.allFeedback} />
       ) : (
-        <EmptyState />
+        <FeedbackEmptyState />
       )}
     </DashboardShell>
   )
