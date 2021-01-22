@@ -19,7 +19,7 @@ const Home = ({ allFeedback }) => {
             <script
               dangerouslySetInnerHTML={{
                 __html: `if (document.cookie && document.cookie.includes('feedback-loop-auth')) {
-                      window.location.href = "/dashboard"
+                      window.location.href = "/sites"
                     }
                   `
               }}
