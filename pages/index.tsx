@@ -3,12 +3,12 @@ import { Box, Flex, Text } from '@chakra-ui/react'
 import { GetStaticProps } from 'next'
 
 import { LogoIcon } from '@components/Icons/LogoIcon'
-import { AuthButtons } from '@containers/Home/AuthButtons'
+import { AuthButtons } from '@components/AuthButtons'
 import { getAllFeedback } from '@lib/db-admin'
 import { FeedbackLink } from '@containers/SiteFeedback/FeedbackLink'
 import { Feedback } from '@containers/SiteFeedback/Feedback'
 
-const SITE_ID = '861mmV8YcfMo8ECmTmIX'
+const SITE_ID = 'K27L1fcuebu9l5HR9aTm'
 
 const Home = ({ allFeedback }) => {
   return (

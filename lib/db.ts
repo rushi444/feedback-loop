@@ -26,7 +26,17 @@ export const createFeedback = (data: TNewFeedback) => {
 }
 
 export const deleteFeedback = (feedbackId: string) => {
-  return firestore.collection('feedback').doc(feedbackId).delete()
+  return firestore
+    .collection('feedback')
+    .doc(feedbackId)
+    .update({ status: 'removed' })
+}
+
+export const updateFeedback = async (id: string, newValues: any) => {
+  return await firestore
+    .collection('feedback')
+    .doc(id)
+    .update({ ...newValues })
 }
 
 export const createCheckoutSession = async (uid: string) => {

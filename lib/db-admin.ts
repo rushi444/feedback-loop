@@ -61,6 +61,7 @@ export const getFeedbackByUser = async (userId: string) => {
     const snapshot = await firestore
       .collection('feedback')
       .where('authorId', '==', userId)
+      .where('status', '!=', 'removed')
       .get()
 
     const allFeedback = []
@@ -73,4 +74,11 @@ export const getFeedbackByUser = async (userId: string) => {
   } catch (error) {
     console.error({ error })
   }
+}
+
+export const getSite = async (siteId: string) => {
+  const doc = await firestore.collection('sites').doc(siteId).get()
+  const site = { id: doc.id, ...doc.data() }
+
+  return { site }
 }

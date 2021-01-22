@@ -13,6 +13,7 @@ const fetchFeedbackByUser = async (
     const { uid } = await auth.verifyIdToken(token as string)
 
     const feedback = await getFeedbackByUser(uid)
+
     res.status(200).json(feedback)
   } catch (err) {
     logger.error(
