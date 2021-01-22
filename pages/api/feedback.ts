@@ -1,7 +1,7 @@
 import type { NextApiRequest, NextApiResponse } from 'next'
 
 import { auth } from '@lib/firebase-admin'
-import { getFeedbackByUser } from '@lib/db-admin'
+import { getAllFeedbackForSites} from '@lib/db-admin'
 import { formatObjectKeys, logger } from '@utils/logger'
 
 const fetchFeedbackByUser = async (
@@ -12,7 +12,7 @@ const fetchFeedbackByUser = async (
     const { token } = req.headers
     const { uid } = await auth.verifyIdToken(token as string)
 
-    const feedback = await getFeedbackByUser(uid)
+    const feedback = await getAllFeedbackForSites(uid)
 
     res.status(200).json(feedback)
   } catch (err) {

@@ -82,3 +82,45 @@ export const getSite = async (siteId: string) => {
 
   return { site }
 }
+
+export const getUserSites = async (uid: string) => {
+  const snapshot = await firestore
+    .collection('sites')
+    .where('authorId', '==', uid)
+    .get()
+
+  const sites = []
+
+  snapshot.forEach(doc => {
+    sites.push({ id: doc.id, ...doc.data() })
+  })
+
+  sites.sort((a, b) =>
+    compareDesc(parseISO(a.createdAt), parseISO(b.createdAt))
+  )
+
+  return { sites }
+}
+
+export const getAllFeedbackForSites = async (uid: string) => {
+  const { sites } = await getUserSites(uid)
+
+  if (!sites.length) {
+    return { feedback: [] }
+  }
+
+  const siteIds = sites.map(site => site.id)
+
+  const snapshot = await firestore
+    .collection('feedback')
+    .where('siteId', 'in', siteIds)
+    .get()
+
+  const feedback = []
+
+  snapshot.forEach(doc => {
+    feedback.push({ id: doc.id, ...doc.data() })
+  })
+
+  return { feedback }
+}

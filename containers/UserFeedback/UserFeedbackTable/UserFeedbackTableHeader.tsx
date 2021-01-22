@@ -15,7 +15,7 @@ export const UserFeedbackTableHeader = () => {
         </BreadcrumbItem>
       </Breadcrumb>
       <Flex justifyContent="space-between">
-        <Heading mb={8}>My Feedback</Heading>
+        <Heading mb={8}>All Feedback</Heading>
       </Flex>
     </>
   )
