@@ -11,7 +11,7 @@ export const AuthButtons = () => {
       {auth.user ? (
         <Button
           as="a"
-          href="/dashboard"
+          href="/sites"
           backgroundColor="gray.900"
           color="white"
           fontWeight="medium"
