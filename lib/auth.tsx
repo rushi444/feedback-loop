@@ -76,11 +76,13 @@ function useProvideAuth(): IAuth {
     console.log('redirect==>>', redirect)
   }
   const signOut = () => {
-    router.push('/')
     return firebase
       .auth()
       .signOut()
-      .then(() => handleUser(false))
+      .then(() => {
+        router.push('/')
+        handleUser(false)
+      })
   }
 
   useEffect(() => {
