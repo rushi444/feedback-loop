@@ -1,13 +1,29 @@
 import { Flex, Link } from '@chakra-ui/react'
 
-export const FeedbackLink = ({ siteId }) => {
+type Props = {
+  paths: any
+}
+
+export const FeedbackLink = ({ paths }: Props) => {
   return (
-    <Flex justifyContent="space-between" mb={8} width="full" mt={1}>
-      <Link fontWeight="bold" fontSize="sm" href={`/site/${siteId}`}>
+    <Flex
+      align={['flex-start', 'center']}
+      justifyContent="space-between"
+      mb={8}
+      width="full"
+      mt={1}
+      direction={['column', 'row']}
+    >
+      <Link
+        fontWeight="bold"
+        fontSize="sm"
+        href={`/site/${paths.join('/')}`}
+        target="_blank"
+      >
         Leave a comment →
       </Link>
-      <Link fontSize="xs" color="blackAlpha.500" href="/">
-        Powered by Feedback Loop
+      <Link fontSize="xs" color="blackAlpha.500" href="/" target="_blank">
+        Powered by Fast Feedback (Alpha)
       </Link>
     </Flex>
   )

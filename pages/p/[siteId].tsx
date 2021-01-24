@@ -8,8 +8,8 @@ import { InputField } from '@components/fields/InputField'
 import { useAuth } from '@lib/auth'
 import { createFeedback } from '@lib/db'
 import { getAllFeedback, getAllSites } from '@lib/db-admin'
-import { Feedback } from '@containers/SiteFeedback/Feedback'
 import { TFeedback } from 'utils/types'
+import { Feedback } from '@containers/SiteFeedback/Feedback'
 
 type Props = {
   initialFeedback: TFeedback[]
@@ -57,7 +57,7 @@ const SiteFeedback = ({ initialFeedback }: Props) => {
       </Box>
 
       {allFeedback?.map((feedback: TFeedback) => (
-        <Feedback key={feedback.id} {...feedback} />
+        <Feedback key={feedback.id} feedback={feedback} {...feedback} />
       ))}
     </Box>
   )

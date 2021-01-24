@@ -1,72 +1,65 @@
-import { useRef, useState } from 'react'
+import { useRef } from 'react'
 import { useRouter } from 'next/router'
 import { Box, FormControl, Textarea, Button } from '@chakra-ui/react'
+import useSWR, { mutate } from 'swr'
 
 import { useAuth } from '@lib/auth'
 import { createFeedback } from '@lib/db'
-import { getAllFeedback, getAllSites, getSite } from '@lib/db-admin'
-import { AuthButtons } from '@components/AuthButtons'
+import { fetcher } from '@utils/fetcher'
 import { DashboardShell } from '@containers/Dashboard/DashboardShell'
 import { SiteFeedbackHeader } from '@containers/SiteFeedback/SiteFeedbackHeader'
 import { Feedback } from '@containers/SiteFeedback/Feedback'
+import { AuthButtons } from '@components/AuthButtons'
 
-export async function getStaticProps(context) {
-  const siteId = context.params.siteId
-  const { feedback } = await getAllFeedback(siteId)
-  const { site } = await getSite(siteId)
-
-  return {
-    props: {
-      initialFeedback: feedback,
-      site
-    },
-    revalidate: 1
-  }
-}
-
-export async function getStaticPaths() {
-  const { sites } = await getAllSites()
-  const paths = sites.map(site => ({
-    params: {
-      siteId: site.id.toString()
-    }
-  }))
-
-  return {
-    paths,
-    fallback: true
-  }
-}
-
-const Site = ({ initialFeedback, site }) => {
+const FeedbackPage = () => {
   const { user, loading } = useAuth()
-  const router = useRouter()
   const inputEl = useRef(null)
-  const [allFeedback, setAllFeedback] = useState(initialFeedback)
+  const router = useRouter()
+  const siteAndRoute = router.query?.site
+  const siteId = siteAndRoute ? siteAndRoute[0] : null
+  const route = siteAndRoute ? siteAndRoute[1] : null
+  const feedbackApi = route
+    ? `/api/feedback/${siteId}/${route}`
+    : `/api/feedback/${siteId}`
 
-  const onSubmit = e => {
+  const { data: siteData } = useSWR(`/api/site/${siteId}`, fetcher)
+  const { data: feedbackData } = useSWR(feedbackApi, fetcher)
+
+  const site = siteData?.site
+  const allFeedback = feedbackData?.feedback
+
+  console.log(allFeedback, 'lookey')
+  const onSubmit = async e => {
     e.preventDefault()
 
     const newFeedback = {
+      siteId,
+      siteAuthorId: site.authorId,
+      route: route || '/',
       author: user.name,
       authorId: user.uid,
-      siteId: router.query.siteId,
-      text: inputEl.current.value,
+      text: inputEl.current.value.replace('\n', '\n\n'),
       createdAt: new Date().toISOString(),
       provider: user.provider,
       status: 'pending'
     }
 
     inputEl.current.value = ''
-    setAllFeedback([newFeedback, ...allFeedback])
-    createFeedback(newFeedback)
+    await createFeedback(newFeedback)
+    mutate(
+      feedbackApi,
+      async data => ({
+        feedback: [newFeedback, ...data.feedback]
+      }),
+      false
+    )
   }
 
   const LoginOrLeaveFeedback = () =>
     user ? (
       <Button
         type="submit"
-        isDisabled={router.isFallback}
+        isDisabled={!siteData || !feedbackData}
         backgroundColor="gray.900"
         color="white"
         fontWeight="medium"
@@ -85,7 +78,12 @@ const Site = ({ initialFeedback, site }) => {
 
   return (
     <DashboardShell>
-      <SiteFeedbackHeader siteName={site?.name} />
+      <SiteFeedbackHeader
+        isSiteOwner={site?.authorId === user?.uid}
+        site={site}
+        siteId={siteId}
+        route={route}
+      />
       <Box
         display="flex"
         mx={4}
@@ -99,18 +97,22 @@ const Site = ({ initialFeedback, site }) => {
               ref={inputEl}
               id="comment"
               placeholder="Leave a comment"
+              isDisabled={!user}
               h="100px"
             />
             {!loading && <LoginOrLeaveFeedback />}
           </FormControl>
         </Box>
-        {allFeedback &&
-          allFeedback.map(feedback => (
-            <Feedback key={feedback.id} {...feedback} />
-          ))}
+        {allFeedback?.map((feedback, index) => {
+          const isLast = index === allFeedback.length - 1
+          console.log('feed', feedback)
+          return (
+            <Feedback key={feedback.id} feedback={{ isLast, ...feedback }} />
+          )
+        })}
       </Box>
     </DashboardShell>
   )
 }
 
-export default Site
+export default FeedbackPage

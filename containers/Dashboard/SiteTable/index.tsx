@@ -4,6 +4,7 @@ import NextLink from 'next/link'
 
 import { Table, Tr, Th, Td } from '@containers/Dashboard/SiteTable/Table'
 import { TSite } from 'utils/types'
+import { DeleteSitebutton } from './DeleteSiteButton'
 
 export const SiteTable = ({ sites }) => {
   return (
@@ -34,6 +35,9 @@ export const SiteTable = ({ sites }) => {
               </NextLink>
             </Td>
             <Td>{format(parseISO(site.createdAt), 'PPpp')}</Td>
+            <Td>
+            <DeleteSitebutton siteId={site.id} />
+            </Td>
           </Box>
         ))}
       </tbody>

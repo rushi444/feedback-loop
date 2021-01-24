@@ -25,6 +25,8 @@ export type TFeedback = {
   rating?: number
   text: string
   status: string
+  settings: TSettings
+  isLast: boolean
 }
 
 export type TNewFeedback = {
@@ -34,6 +36,7 @@ export type TNewFeedback = {
   text: string
   createdAt: string
   provider: string
+  isLast?: boolean
   status: string
 }
 
@@ -42,4 +45,11 @@ export type TNewSite = {
   createdAt: string
   name: string
   url: string
+  settings: TSettings
+}
+
+type TSettings = {
+  icons: boolean
+  timestamp: boolean
+  ratings: boolean
 }

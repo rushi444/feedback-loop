@@ -21,6 +21,26 @@ export const createSite = (data: TNewSite) => {
   return site
 }
 
+export const deleteSite = async (id: string) => {
+  firestore.collection('sites').doc(id).delete();
+  const snapshot = await firestore
+    .collection('feedback')
+    .where('siteId', '==', id)
+    .get();
+
+  const batch = db.batch();
+
+  snapshot.forEach((doc) => {
+    batch.delete(doc);
+  });
+
+  return batch.commit();
+}
+
+export const updateSite = (id: string, newValues: any) =>  {
+  return firestore.collection('sites').doc(id).update(newValues);
+}
+
 export const createFeedback = (data: TNewFeedback) => {
   return firestore.collection('feedback').add(data)
 }
@@ -40,7 +60,6 @@ export const updateFeedback = async (id: string, newValues: any) => {
 }
 
 export const createCheckoutSession = async (uid: string) => {
-  console.log('what')
   const checkoutSessionRef = await firestore
     .collection('users')
     .doc(uid)
@@ -53,7 +72,7 @@ export const createCheckoutSession = async (uid: string) => {
 
   checkoutSessionRef.onSnapshot(async snap => {
     const { sessionId } = snap.data()
-    console.log('sesssionid', sessionId)
+
     if (sessionId) {
       const stripe = await getStripe()
 

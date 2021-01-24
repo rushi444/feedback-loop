@@ -64,7 +64,7 @@ function useProvideAuth(): IAuth {
       .auth()
       .signInWithPopup(new firebase.auth.GoogleAuthProvider())
     handleUser(response.user)
-    console.log('redirect==>>', redirect)
+    // console.log('redirect==>>', redirect)
   }
   const signInWithGitHub = async (redirect: any) => {
     setLoading(true)
@@ -73,7 +73,7 @@ function useProvideAuth(): IAuth {
       .auth()
       .signInWithPopup(new firebase.auth.GithubAuthProvider())
     handleUser(response.user)
-    console.log('redirect==>>', redirect)
+    // console.log('redirect==>>', redirect)
   }
   const signOut = () => {
     return firebase

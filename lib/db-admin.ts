@@ -1,12 +1,18 @@
 import { compareDesc, parseISO } from 'date-fns'
 import { firestore } from './firebase-admin'
 
-export const getAllFeedback = async (siteId: string) => {
+export const getAllFeedback = async (siteId: string, route?: string) => {
   try {
-    const snapshot = await firestore
+    let ref = firestore
       .collection('feedback')
       .where('siteId', '==', siteId)
-      .get()
+      .where('status', '==', 'active')
+
+    if (route) {
+      ref = ref.where('route', '==', route)
+    }
+
+    const snapshot = await ref.get()
 
     const feedback = []
 
@@ -77,7 +83,8 @@ export const getFeedbackByUser = async (userId: string) => {
 }
 
 export const getSite = async (siteId: string) => {
-  const doc = await firestore.collection('sites').doc(siteId).get()
+  const doc = await firestore.collection('sites').doc(`${siteId}`).get()
+
   const site = { id: doc.id, ...doc.data() }
 
   return { site }
@@ -114,6 +121,7 @@ export const getAllFeedbackForSites = async (uid: string) => {
   const snapshot = await firestore
     .collection('feedback')
     .where('siteId', 'in', siteIds)
+    .where('status', '!=', 'removed')
     .get()
 
   const feedback = []
