@@ -31,7 +31,6 @@ export const DeleteFeedbackButton = ({ feedbackId }: Props) => {
     mutate(
       ['/api/feedback', auth.user.token],
       async data => {
-        console.log(data)
         return {
           feedback: data.feedback.filter(
             (feedback: TFeedback) => feedback.id !== feedbackId

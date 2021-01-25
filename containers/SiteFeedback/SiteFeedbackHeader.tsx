@@ -11,7 +11,6 @@ import NextLink from 'next/link'
 import { EditSiteModal } from '../Dashboard/EditSiteModal'
 
 export const SiteFeedbackHeader = ({ isSiteOwner, site, siteId, route }) => {
-  console.log('in header', site)
   const siteName = site?.name
 
   return (

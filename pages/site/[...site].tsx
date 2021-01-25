@@ -28,7 +28,6 @@ const FeedbackPage = () => {
   const site = siteData?.site
   const allFeedback = feedbackData?.feedback
 
-  console.log(allFeedback, 'lookey')
   const onSubmit = async e => {
     e.preventDefault()
 
@@ -105,9 +104,8 @@ const FeedbackPage = () => {
         </Box>
         {allFeedback?.map((feedback, index) => {
           const isLast = index === allFeedback.length - 1
-          console.log('feed', feedback)
           return (
-            <Feedback key={feedback.id} feedback={{ isLast, ...feedback }} />
+            <Feedback key={feedback.id} feedback={{ isLast, ...feedback }} site={site} />
           )
         })}
       </Box>

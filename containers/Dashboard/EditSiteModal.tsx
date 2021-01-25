@@ -18,6 +18,7 @@ import {
 
 import { updateSite } from '@lib/db'
 import { useAuth } from '@lib/auth'
+import { SettingsIcon } from '@chakra-ui/icons'
 
 export const EditSiteModal = ({ settings, siteId, children }) => {
   const toast = useToast()
@@ -47,7 +48,7 @@ export const EditSiteModal = ({ settings, siteId, children }) => {
         backgroundColor="gray.900"
         color="white"
         fontWeight="medium"
-        // leftIcon="settings"
+        leftIcon={<SettingsIcon />}
         _hover={{ bg: 'gray.700' }}
         _active={{
           bg: 'gray.800',
@@ -68,7 +69,7 @@ export const EditSiteModal = ({ settings, siteId, children }) => {
                 name="timestamp"
                 ref={register()}
                 color="green"
-                defaultIsChecked={settings?.timestamp}
+                defaultChecked={settings?.timestamp}
               />
               <FormLabel ml={2} htmlFor="show-timestamp">
                 Show Timestamp
@@ -80,7 +81,7 @@ export const EditSiteModal = ({ settings, siteId, children }) => {
                 name="icons"
                 ref={register()}
                 color="green"
-                defaultIsChecked={settings?.icons}
+                defaultChecked={settings?.icons}
               />
               <FormLabel ml={2} htmlFor="show-icons">
                 Show Icon
@@ -92,7 +93,7 @@ export const EditSiteModal = ({ settings, siteId, children }) => {
                 name="ratings"
                 ref={register()}
                 color="green"
-                defaultIsChecked={settings?.ratings}
+                defaultChecked={settings?.ratings}
               />
               <FormLabel ml={2} htmlFor="show-ratings">
                 Show Ratings
