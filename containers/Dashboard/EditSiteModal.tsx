@@ -37,7 +37,7 @@ export const EditSiteModal = ({ settings, siteId, children }) => {
       duration: 5000,
       isClosable: true
     })
-    mutate(['/api/sites', user.token])
+    mutate([`/api/site/${siteId}`])
     onClose()
   }
 

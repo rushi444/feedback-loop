@@ -5,12 +5,12 @@ import { format, parseISO } from 'date-fns'
 
 type Props = {
   feedback: TFeedback
-  site: any
+  settings: any
+  isLast: boolean
 }
 
-export const Feedback = ({ feedback, site }: Props) => {
-  const { author, text, createdAt, provider, isLast } = feedback
-  const { settings } = site
+export const Feedback = ({ feedback, settings, isLast }: Props) => {
+  const { author, text, createdAt, provider } = feedback
 
   return (
     <Box borderRadius={4} maxWidth="700px" w="full">

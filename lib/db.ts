@@ -28,10 +28,10 @@ export const deleteSite = async (id: string) => {
     .where('siteId', '==', id)
     .get();
 
-  const batch = db.batch();
+  const batch = firestore.batch();
 
   snapshot.forEach((doc) => {
-    batch.delete(doc);
+    batch.delete(doc.ref);
   });
 
   return batch.commit();

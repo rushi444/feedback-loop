@@ -42,7 +42,6 @@ const FeedbackPage = () => {
       provider: user.provider,
       status: 'pending'
     }
-
     inputEl.current.value = ''
     await createFeedback(newFeedback)
     mutate(
@@ -105,7 +104,12 @@ const FeedbackPage = () => {
         {allFeedback?.map((feedback, index) => {
           const isLast = index === allFeedback.length - 1
           return (
-            <Feedback key={feedback.id} feedback={{ isLast, ...feedback }} site={site} />
+            <Feedback
+              key={feedback.id || Math.random().toString(36).substring(7)}
+              isLast={isLast}
+              feedback={feedback}
+              settings={site.settings}
+            />
           )
         })}
       </Box>

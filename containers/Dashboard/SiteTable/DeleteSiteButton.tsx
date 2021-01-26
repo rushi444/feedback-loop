@@ -1,5 +1,5 @@
-import { useState, useRef } from 'react';
-import { mutate } from 'swr';
+import { useState, useRef } from 'react'
+import { mutate } from 'swr'
 import {
   AlertDialog,
   AlertDialogBody,
@@ -9,36 +9,37 @@ import {
   AlertDialogOverlay,
   IconButton,
   Button
-} from '@chakra-ui/react';
+} from '@chakra-ui/react'
 
-import { deleteSite } from '@lib/db';
-import { useAuth } from '@lib/auth';
+import { deleteSite } from '@lib/db'
+import { useAuth } from '@lib/auth'
+import { DeleteIcon } from '@chakra-ui/icons'
 
 export const DeleteSitebutton = ({ siteId }) => {
-  const [isOpen, setIsOpen] = useState<boolean | undefined>();
-  const cancelRef = useRef();
-  const auth = useAuth();
+  const [isOpen, setIsOpen] = useState<boolean | undefined>()
+  const cancelRef = useRef()
+  const auth = useAuth()
 
-  const onClose = () => setIsOpen(false);
+  const onClose = () => setIsOpen(false)
   const onDelete = () => {
-    deleteSite(siteId);
+    deleteSite(siteId)
     mutate(
       ['/api/sites', auth.user.token],
-      async (data) => {
+      async data => {
         return {
-          sites: data.sites.filter((site) => site.id !== siteId)
-        };
+          sites: data.sites.filter(site => site.id !== siteId)
+        }
       },
       false
-    );
-    onClose();
-  };
+    )
+    onClose()
+  }
 
   return (
     <>
       <IconButton
         aria-label="Delete site"
-        icon="delete"
+        icon={<DeleteIcon />}
         variant="ghost"
         onClick={() => setIsOpen(true)}
       />
@@ -72,5 +73,5 @@ export const DeleteSitebutton = ({ siteId }) => {
         </AlertDialogContent>
       </AlertDialog>
     </>
-  );
-};
+  )
+}

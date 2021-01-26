@@ -23,7 +23,7 @@ export const FeedbackLink = ({ paths }: Props) => {
         Leave a comment →
       </Link>
       <Link fontSize="xs" color="blackAlpha.500" href="/" target="_blank">
-        Powered by Fast Feedback (Alpha)
+        Powered by Feedback Loop
       </Link>
     </Flex>
   )
