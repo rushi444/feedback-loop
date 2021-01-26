@@ -94,7 +94,7 @@ const Account = () => {
           <Heading letterSpacing="-1px">{user?.name}</Heading>
           <Text>{user?.email}</Text>
         </Flex>
-        <SettingsTable stripeRole={user?.stripeRole}>
+        <SettingsTable stripeRole={'basic'}>
           <FeedbackUsage />
           <Text my={4}>
             Fast Feedback uses Stripe to update, change, or cancel your
@@ -136,4 +136,4 @@ const AccountPage = () => (
   </Page>
 );
 
-export default AccountPage;
+export default Account;

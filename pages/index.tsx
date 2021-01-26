@@ -7,7 +7,7 @@ import { AuthButtons } from '@components/AuthButtons'
 import { FeedbackLink } from '@containers/SiteFeedback/FeedbackLink'
 import { Feedback } from '@containers/SiteFeedback/Feedback'
 
-const SITE_ID = 'yjIaQj1mKtVKqUnU9tb3'
+const SITE_ID = 'OMxygJMxowv2YuyVviKK'
 
 export async function getStaticProps(context) {
   const { feedback } = await getAllFeedback(SITE_ID)
@@ -84,7 +84,7 @@ const Home = ({ allFeedback, site }) => {
             key={feedback.id}
             settings={site?.settings}
             isLast={index === allFeedback.length - 1}
-            {...feedback}
+            feedback={feedback}
           />
         ))}
       </Box>
