@@ -1,12 +1,12 @@
 # Getting Started
 
-Welcome to Fast Feedback! 👋🏼
+Welcome to Feedback Loop 👋🏼
 
 To get started adding feedback to your site, retrieve the site ID
 from the URL and place this iframe inside your site.
 
 ```
-<iframe src="https://fastfeedback.io/embed/SITE_ID" />
+<iframe src="https://feedback-loop.vercel.app/embed/SITE_ID" />
 ```
 
 ## Multiple Routes
@@ -15,30 +15,10 @@ If you want to add feedback to multiple routes in a single site,
 forward a unique slug for that route.
 
 ```
-<iframe src="https://fastfeedback.io/embed/SITE_ID/ROUTE" />
+<iframe src="https://feedback-loop.vercel.app/embed/SITE_ID/ROUTE" />
 ```
 
 This is perfect for adding comments to a blog or product reviews.
-
-## Automatic Resizing
-
-When embedding your feedback iframe, you might want it to automatically resize the
-height to its contents. This can be achieved using [iframe-resizer](https://github.com/davidjbradshaw/iframe-resizer).
-
-For example, if you are using React, you can add [iframe-resizer-react](https://github.com/davidjbradshaw/iframe-resizer-react) and do
-something like this. This library is [5.8kB](https://bundlephobia.com/result?p=iframe-resizer-react@1.0.4) minified + gzipped with no dependencies.
-
-```jsx
-<IframeResizer
-  checkOrigin={false}
-  title="Comments"
-  src={`https://fastfeedback.io/embed/SITE_ID`}
-  style={{
-    width: '1px',
-    minWidth: '100%'
-  }}
-/>
-```
 
 ## API
 
@@ -53,7 +33,7 @@ import useSWR from 'swr'
 const fetcher = (...args) => fetch(...args).then(res => res.json())
 
 function Feedback () {
-  const API = 'https://fastfeedback.io/api/feedback/SITE_ID';
+  const API = 'https://feedback-loop.vercel.app/api/feedback/SITE_ID';
   const { data, error } = useSWR(API, fetcher)
 
   if (error) return <div>Failed to load</div>
