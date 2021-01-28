@@ -1,4 +1,4 @@
-import { Box, Heading, Text, Divider, Icon, Flex } from '@chakra-ui/react'
+import { Box, Heading, Text, Divider, Flex } from '@chakra-ui/react'
 import { getLogo } from '@utils/getLogo'
 import { TFeedback } from '@utils/types'
 import { format, parseISO } from 'date-fns'

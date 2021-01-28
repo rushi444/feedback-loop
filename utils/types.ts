@@ -25,8 +25,8 @@ export type TFeedback = {
   rating?: number
   text: string
   status: string
-  settings: TSettings
-  isLast: boolean
+  settings?: TSettings
+  isLast?: boolean
 }
 
 export type TNewFeedback = {
