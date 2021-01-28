@@ -5,8 +5,8 @@ import { format, parseISO } from 'date-fns'
 
 type Props = {
   feedback: TFeedback
-  settings: any
-  isLast: boolean
+  settings?: any
+  isLast?: boolean
 }
 
 export const Feedback = ({ feedback, settings, isLast }: Props) => {

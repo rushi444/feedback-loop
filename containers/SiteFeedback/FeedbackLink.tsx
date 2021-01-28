@@ -4,7 +4,7 @@ type Props = {
   paths: any
 }
 
-export const FeedbackLink = ({ paths }: Props) => {
+export const FeedbackLink = ({ paths = [] }: Props) => {
   return (
     <Flex
       align={['flex-start', 'center']}

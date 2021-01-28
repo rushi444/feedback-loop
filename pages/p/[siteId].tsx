@@ -56,8 +56,8 @@ const SiteFeedback = ({ initialFeedback }: Props) => {
         </Button>
       </Box>
 
-      {allFeedback?.map((feedback: TFeedback) => (
-        <Feedback key={feedback.id} feedback={feedback} {...feedback} />
+      {allFeedback?.map((feedback: TFeedback, index: number) => (
+        <Feedback key={feedback.id} feedback={feedback}/>
       ))}
     </Box>
   )
