@@ -6,8 +6,9 @@ import { getAllFeedback, getSite } from '@lib/db-admin'
 import { AuthButtons } from '@components/AuthButtons'
 import { FeedbackLink } from '@containers/SiteFeedback/FeedbackLink'
 import { Feedback } from '@containers/SiteFeedback/Feedback'
+import { LogoIcon } from '@components/Icons/LogoIcon'
 
-const SITE_ID = 'OMxygJMxowv2YuyVviKK'
+const SITE_ID = 'SYESdKNdIwVXfggj6S9I'
 
 export async function getStaticProps(context) {
   const { feedback } = await getAllFeedback(SITE_ID)
@@ -40,12 +41,12 @@ const Home = ({ allFeedback, site }) => {
               }}
             />
           </Head>
-          <Icon color="black" name="logo" size="48px" mb={2} />
+          <LogoIcon boxSize={16} />
           <Text mb={4} fontSize="lg" py={4}>
             <Text as="span" fontWeight="bold" display="inline">
               Feedback Loop
-            </Text>
-            It's the easiest way to add comments or reviews to your static site.
+            </Text>{' '}
+            is the easiest way to add comments or reviews to your static site.
             It's still a work-in-progress, but you can try it out by logging in.
           </Text>
           {auth.user ? (

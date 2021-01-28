@@ -14,15 +14,6 @@ type IAuth = {
   signOut: () => void
 }
 
-// interface IProvider {
-//   displayName: string
-//   email: string
-//   phoneNumber: null | string | number
-//   photoURL: string
-//   providerId: string
-//   uid: string
-// }
-
 const authContext = createContext<IAuth>(undefined)
 
 export const AuthProvider = ({ children }) => {
