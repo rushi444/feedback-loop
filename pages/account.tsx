@@ -1,4 +1,4 @@
-import { useState } from 'react';
+import { useState } from 'react'
 import {
   Avatar,
   Heading,
@@ -12,12 +12,12 @@ import {
   StatLabel,
   StatNumber,
   StatHelpText
-} from '@chakra-ui/react';
+} from '@chakra-ui/react'
 
-import { useAuth } from '@lib/auth';
-import { goToBillingPortal } from '@lib/db';
-import { DashboardShell } from '@containers/Dashboard/DashboardShell';
-import { Page } from '@containers/Account/Page';
+import { useAuth } from '@lib/auth'
+import { goToBillingPortal } from '@lib/db'
+import { DashboardShell } from '@containers/Dashboard/DashboardShell'
+import { Page } from '@containers/Account/Page'
 
 const FeedbackUsage = () => (
   <StatGroup>
@@ -33,7 +33,7 @@ const FeedbackUsage = () => (
       <StatHelpText>Unlimited Sites</StatHelpText>
     </Stat>
   </StatGroup>
-);
+)
 
 const SettingsTable = ({ stripeRole, children }) => (
   <Box
@@ -70,11 +70,11 @@ const SettingsTable = ({ stripeRole, children }) => (
       {children}
     </Flex>
   </Box>
-);
+)
 
 const Account = () => {
-  const { user, signOut } = useAuth();
-  const [isBillingLoading, setBillingLoading] = useState(false);
+  const { user, signOut } = useAuth()
+  const [isBillingLoading, setBillingLoading] = useState(false)
 
   return (
     <DashboardShell>
@@ -107,8 +107,8 @@ const Account = () => {
             </Button>
             <Button
               onClick={() => {
-                setBillingLoading(true);
-                goToBillingPortal();
+                setBillingLoading(true)
+                goToBillingPortal()
               }}
               backgroundColor="gray.900"
               color="white"
@@ -127,13 +127,13 @@ const Account = () => {
         </SettingsTable>
       </Flex>
     </DashboardShell>
-  );
-};
+  )
+}
 
 const AccountPage = () => (
   <Page name="Account" path="/account">
     <Account />
   </Page>
-);
+)
 
-export default Account;
+export default Account

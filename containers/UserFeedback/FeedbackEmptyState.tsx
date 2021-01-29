@@ -1,4 +1,4 @@
-import { Heading, Flex, Text } from '@chakra-ui/react';
+import { Heading, Flex, Text } from '@chakra-ui/react'
 
 export const FeedbackEmptyState = () => (
   <Flex
@@ -15,4 +15,4 @@ export const FeedbackEmptyState = () => (
     </Heading>
     <Text mb={4}>Share your sites!</Text>
   </Flex>
-);
+)

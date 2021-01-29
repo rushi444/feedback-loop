@@ -37,4 +37,3 @@ export const Feedback = ({ feedback, settings, isLast }: Props) => {
     </Box>
   )
 }
-

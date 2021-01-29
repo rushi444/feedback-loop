@@ -36,7 +36,7 @@ export const SiteTable = ({ sites }) => {
             </Td>
             <Td>{format(parseISO(site.createdAt), 'PPpp')}</Td>
             <Td>
-            <DeleteSitebutton siteId={site.id} />
+              <DeleteSitebutton siteId={site.id} />
             </Td>
           </Box>
         ))}
